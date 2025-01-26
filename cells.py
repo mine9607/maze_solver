@@ -2,6 +2,8 @@ from draw import Point, Line
 
 # NOTE: to improve code - refactor the draw_cell function to include a helper function draw_wall
 # NOTE: refactor with a get_center method to get self.get_center() and to_cell.get_center()
+# NOTE: Improve cell calculations with abs values in center calc
+# NOTE: what if a negative value is passed to a point (i.e. x2 = -100)
 
 class Cell:
   def __init__(self, x1, x2, y1, y2, win, left_wall=True, right_wall=True, top_wall=True, bottom_wall=True ):
