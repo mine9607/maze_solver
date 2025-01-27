@@ -42,6 +42,22 @@ class Tests(unittest.TestCase):
 
     # self.assertEqual(m1._cells[0])
 
+  def test_reset_cells_visited(self):
+    # Create a Maze instance
+    num_cols = 5
+    num_rows = 5
+    m1 = Maze(0, 0, num_rows=num_rows, num_cols=num_cols, cell_size_x=10, cell_size_y=10)
+
+    # Check all cells to ensure visited is reset to False
+    print("\nTesting if all cells are properly reset to visited == False")
+    for i in range(num_cols):
+      for j in range(num_rows):
+        with self.subTest(i=i, j=j):  # Use subTest for better debugging
+          self.assertFalse(
+            m1._cells[i][j].visited,
+            f"Cell ({i}, {j}) should have visited == False"
+          )
+
 
 if __name__ == "__main__":
   unittest.main()
