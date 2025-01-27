@@ -1,9 +1,9 @@
 
 from cells import Cell
-
+import random
 import time
 class Maze:
-  def __init__(self, x1, y1, num_rows, num_cols, cell_size_x, cell_size_y, win):
+  def __init__(self, x1, y1, num_rows, num_cols, cell_size_x, cell_size_y, win=None, seed=None):
     self._cells = []
     self._x1 = x1
     self._y1 = y1
@@ -12,6 +12,7 @@ class Maze:
     self._cell_size_x = cell_size_x
     self._cell_size_y = cell_size_y
     self._win = win
+    self.seed = random.seed(seed)
 
     self._create_cells()
   
@@ -35,13 +36,30 @@ class Maze:
         y1 = self._y1 + self._cell_size_y*j
         y2 = y1 + self._cell_size_y
 
-        # Create a cell object 
-        cell = Cell(x1 = x1, x2 = x2, y1 = y1, y2 = y2,win = self._win, left_wall=True, right_wall=True, top_wall= True, bottom_wall=True)
-        col_list.append(cell)
-        # self.__draw_cell(i,j)  
-        # NOTE: why call self.__draw_cell when the Cell class already has a draw_cell(self) method? - Note because we need to call self.__animate()
-        cell.draw_cell()
-        self._animate()
+        # Create a maze entrance
+        if i == 0 and j == 0:
+          cell = Cell(x1 = x1, x2 = x2, y1 = y1, y2 = y2,win = self._win, left_wall=True, right_wall=True, top_wall= False, bottom_wall=True)
+          col_list.append(cell)
+          cell.draw_cell()
+          self._animate()
+
+        
+        # Create a maze exit
+        elif i == self._num_cols-1 and j == self._num_rows-1:
+          cell = Cell(x1 = x1, x2 = x2, y1 = y1, y2 = y2,win = self._win, left_wall=True, right_wall=True, top_wall= True, bottom_wall=False)
+          col_list.append(cell)
+          cell.draw_cell()
+          self._animate()
+
+        
+        else:
+          # Create a cell object 
+          cell = Cell(x1 = x1, x2 = x2, y1 = y1, y2 = y2,win = self._win, left_wall=True, right_wall=True, top_wall= True, bottom_wall=True)
+          col_list.append(cell)
+          # self.__draw_cell(i,j)  
+          # NOTE: why call self.__draw_cell when the Cell class already has a draw_cell(self) method? - Note because we need to call self.__animate()
+          cell.draw_cell()
+          self._animate()
 
       self._cells.append(col_list)
 
@@ -65,6 +83,8 @@ class Maze:
 
     It should call the window's redraw() method, then use time.sleep() for a short amount of time so your eyes keep up with each render frame (0.05 seconds)
     '''
+    if self._win is None:
+      return 
 
     self._win.redraw()
     time.sleep(0.05)
