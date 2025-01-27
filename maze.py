@@ -88,3 +88,13 @@ class Maze:
 
     self._win.redraw()
     time.sleep(0.10)
+  
+  def _break_entrance_and_exit():
+    pass
+    ''' 
+    Should remove the top wall from the first cell in the self._cells list of list (ie. self._cells[0][0]) and the bottom wall from the last cell (ie. self._cells[num_cols-1][num_rows-1])
+    '''
+    
+
+  def _break_walls_r(self, i, j):
+    pass

@@ -23,31 +23,31 @@ class Cell:
     # If cell has walls draw them
     if self.has_top_wall:
       # draw line from start point (x1,y1) to (x2,y1)
-      start_point = Point(self._x1, self._y1)
-      end_point = Point(self._x2, self._y1)
-      top_wall_line = Line(start_point, end_point)
-      self._win.draw_line(top_wall_line, fill_color)
+      top_line = Line(Point(self._x1, self._y1), Point(self._x2, self._y1))
+      self._win.draw_line(top_line, fill_color)
+    else:
+      self._win.draw_line(top_line, "white")
     
     if self.has_right_wall:
       # draw line from start point (x2,y1) to (x2,y2)
-      start_point = Point(self._x2, self._y1)
-      end_point = Point(self._x2, self._y2)
-      right_wall_line = Line(start_point, end_point)
-      self._win.draw_line(right_wall_line, fill_color)
+      right_line = Line(Point(self._x2, self._y1),Point(self._x2, self._y2))
+      self._win.draw_line(right_line, fill_color)
+    else:
+      self._win.draw_line(right_line, "white")
     
     if self.has_bottom_wall:
       # draw line from start point (x2, y2) to (x1, y2)
-      start_point = Point(self._x2, self._y2)
-      end_point = Point(self._x1, self._y2)
-      bottom_wall_line = Line(start_point, end_point)
-      self._win.draw_line(bottom_wall_line, fill_color)
+      bottom_line = Line(Point(self._x2, self._y2),Point(self._x1, self._y2))
+      self._win.draw_line(bottom_line, fill_color)
+    else:
+      self._win.draw_line(bottom_line, "white")
 
     if self.has_left_wall:
       # draw line from start point (x1,y2) to (x1,y1)
-      start_point = Point(self._x1, self._y2)
-      end_point = Point(self._x1, self._y1)
-      left_wall_line = Line(start_point, end_point)
-      self._win.draw_line(left_wall_line, fill_color)
+      left_line = Line(Point(self._x1, self._y2), Point(self._x1, self._y1))
+      self._win.draw_line(left_line, fill_color)
+    else:
+      self._win.draw_line(left_line, "white")
 
   def draw_move(self, to_cell, undo=False):
     '''
