@@ -6,25 +6,30 @@ from draw import Point, Line
 # NOTE: what if a negative value is passed to a point (i.e. x2 = -100)
 
 class Cell:
-  def __init__(self, x1, x2, y1, y2, win, left_wall=True, right_wall=True, top_wall=True, bottom_wall=True ):
-    self.has_left_wall = left_wall
-    self.has_right_wall = right_wall
-    self.has_top_wall = top_wall
-    self.has_bottom_wall = bottom_wall
-    self._x1 = x1 # left point of the cell - horizontal
-    self._x2 = x2 # right point of the cell - horizontal
-    self._y1 = y1 # top point of the cell - vertical
-    self._y2 = y2 # bottom point of the cell - vertical
+  def __init__(self, win=None):
+    self.has_left_wall = True
+    self.has_right_wall = True 
+    self.has_top_wall = True
+    self.has_bottom_wall = True
+    self._x1 = None # left point of the cell - horizontal
+    self._x2 = None # right point of the cell - horizontal
+    self._y1 = None # top point of the cell - vertical
+    self._y2 = None # bottom point of the cell - vertical
     self._win = win
 
-  def draw_cell(self, fill_color="black"):
+  def draw_cell(self, x1, y1, x2, y2):
     if self._win is None:
       return
+
+    self._x1 = x1
+    self._y1 = y1
+    self._x2 = x2
+    self._y2 = y2
     # If cell has walls draw them
     if self.has_top_wall:
       # draw line from start point (x1,y1) to (x2,y1)
       top_line = Line(Point(self._x1, self._y1), Point(self._x2, self._y1))
-      self._win.draw_line(top_line, fill_color)
+      self._win.draw_line(top_line)
     else:
       top_line = Line(Point(self._x1, self._y1), Point(self._x2, self._y1))
       self._win.draw_line(top_line, "white")
@@ -32,7 +37,7 @@ class Cell:
     if self.has_right_wall:
       # draw line from start point (x2,y1) to (x2,y2)
       right_line = Line(Point(self._x2, self._y1),Point(self._x2, self._y2))
-      self._win.draw_line(right_line, fill_color)
+      self._win.draw_line(right_line)
     else:
       right_line = Line(Point(self._x2, self._y1),Point(self._x2, self._y2))
       self._win.draw_line(right_line, "white")
@@ -40,7 +45,7 @@ class Cell:
     if self.has_bottom_wall:
       # draw line from start point (x2, y2) to (x1, y2)
       bottom_line = Line(Point(self._x2, self._y2),Point(self._x1, self._y2))
-      self._win.draw_line(bottom_line, fill_color)
+      self._win.draw_line(bottom_line)
     else:
       bottom_line = Line(Point(self._x2, self._y2),Point(self._x1, self._y2))
       self._win.draw_line(bottom_line, "white")
@@ -48,7 +53,7 @@ class Cell:
     if self.has_left_wall:
       # draw line from start point (x1,y2) to (x1,y1)
       left_line = Line(Point(self._x1, self._y2), Point(self._x1, self._y1))
-      self._win.draw_line(left_line, fill_color)
+      self._win.draw_line(left_line)
     else:
       left_line = Line(Point(self._x1, self._y2), Point(self._x1, self._y1))
       self._win.draw_line(left_line, "white")

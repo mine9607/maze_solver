@@ -25,9 +25,9 @@ class Window:
 
     self.__root.protocol("WM_DELETE_WINDOW", self.close)
   
-  def draw_line(self, line, fill_color):
+  def draw_line(self, line, fill_color = "black"):
     # note line will be an instance of the Line class 
-    line.draw(self.__canvas, fill_color=fill_color)
+    line.draw(self.__canvas, fill_color)
 
 
   # create a class function to redraw the window when executed
