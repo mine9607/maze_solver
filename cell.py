@@ -73,8 +73,8 @@ class Cell:
     if self._win is None:
       return
 
-    self_center = Point(self.__x1 + (self.__x2 - self.__x1)/2, self.__y1+(self.__y2-self.__y1)/2)
-    to_cell_center = Point(to_cell.__x1 + (to_cell.__x2 - to_cell.__x1)/2, to_cell.__y1 + (to_cell.__y2-to_cell.__y1)/2)
+    self_center = Point(self._x1 + (self._x2 - self._x1)/2, self._y1+(self._y2-self._y1)/2)
+    to_cell_center = Point(to_cell._x1 + (to_cell._x2 - to_cell._x1)/2, to_cell._y1 + (to_cell._y2-to_cell._y1)/2)
     
     connecting_line = Line(self_center, to_cell_center)
 
