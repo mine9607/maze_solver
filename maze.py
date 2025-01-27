@@ -63,19 +63,27 @@ class Maze:
 
       self._cells.append(col_list)
 
-  # def __draw_cell(self, i, j):
-  #   pass
+  def __draw_cell(self, i, j):
+    pass
 
-  #   ''' 
-  #   This method should calculate the x/y position of the Cell based on i, j, the cell_size, and the x/y position of the Maze itself
+    ''' 
+    This method should calculate the x/y position of the Cell based on i, j, the cell_size, and the x/y position of the Maze itself
 
-  #   The x/y position of the maze represents how many pixels from the top and left the maze should start from the side of the window
+    The x/y position of the maze represents how many pixels from the top and left the maze should start from the side of the window
 
-  #   Once calculated, it should draw the cell and call the maze's _animate() method
-  #   '''
-  #   # Calculate the cell 
+    Once calculated, it should draw the cell and call the maze's _animate() method
+    '''
+    
+    if self._win is None:
+      return
 
-  #   self._animate()
+    x1 = self._x1 + i * self._cell_size_x
+    x2 = x1 + self._cell_size_x
+    y1 = self._y1 + j* self._cell_size_y
+    y2 = y1 + self._cell_size_y
+
+    self._cells[i][j].draw(x1, y1, x2, y2)
+    self._animate()
   
   def _animate(self):
     ''' 
@@ -94,6 +102,10 @@ class Maze:
     ''' 
     Should remove the top wall from the first cell in the self._cells list of list (ie. self._cells[0][0]) and the bottom wall from the last cell (ie. self._cells[num_cols-1][num_rows-1])
     '''
+    self._cells[0][0].has_top_wall = False
+    self._draw_cell(0,0)
+    self._cells[num_cols-1][num_rows-1].has_bottom_wall = False
+    self._draw_cell(self.num_cols-1, self.num_rows-1)
     
 
   def _break_walls_r(self, i, j):
