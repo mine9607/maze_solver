@@ -16,6 +16,7 @@ class Cell:
     self._y1 = None # top point of the cell - vertical
     self._y2 = None # bottom point of the cell - vertical
     self._win = win
+    self.visited = False
 
   def draw_cell(self, x1, y1, x2, y2):
     if self._win is None:

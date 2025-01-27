@@ -1,5 +1,5 @@
 
-from cells import Cell
+from cell import Cell
 import random
 import time
 class Maze:
@@ -16,6 +16,7 @@ class Maze:
 
     self._create_cells()
     self._break_entrance_and_exit()
+    self._break_walls_r(0,0)
   
   def _create_cells(self):
     '''  
@@ -81,3 +82,62 @@ class Maze:
 
   def _break_walls_r(self, i, j):
     pass
+    self._cells[i][j].visited = True
+    while True:
+      need_to_visit = [] # list to hold the i and j values that need to be visited
+
+      # Set bounds i-1 must be >=0; i+1 must be <= num-cols; j-1 mu
+      
+
+      # Check the cells adjacent to current cell
+      # Check if the cell exists and if it's visited property is False
+      if i-1 >= 0: 
+        left_cell = self._cells[i-1][j]
+        if not left_cell.visited:
+          need_to_visit.append((i-1,j))
+      if i+1 < self._num_cols:
+        right_cell = self._cells[i+1][j]
+        if not right_cell.visited:
+          need_to_visit.append((i+1,j))
+      if j-1 >= 0:
+        top_cell = self._cells[i][j-1]
+        if not top_cell.visited:
+          need_to_visit.append((i, j-1))
+      if j+1 < self._num_rows:
+        bottom_cell = self._cells[i][j+1]
+        if not bottom_cell.visited:
+          need_to_visit.append((i, j+1))
+
+      # If all adjacent cells have been "visited" then draw cell and exit via 'return'
+      if len(need_to_visit) == 0:
+        self._draw_cell(i,j)
+        return
+      
+      # Pick a random direction of an adjacent cell
+      next_i, next_j = random.choice(need_to_visit)
+
+      # break the wall between the current cell and the next cell
+      if next_i - i == 0 and next_j - j==1:
+        self._cells[i][j].has_bottom_wall = False
+        self._cells[next_i][next_j].has_top_wall = False
+      if next_i - i == 0 and next_j - j == -1:
+        self._cells[i][j].has_top_wall = False
+        self._cells[next_i][next_j].has_bottom_wall = False
+      if next_i - i == 1 and next_j - j ==0:
+        self._cells[i][j].has_right_wall = False
+        self._cells[next_i][next_j].has_left_wall = False
+      if next_i - i == -1 and next_j -j ==0:
+        self._cells[i][j].has_left_wall = False
+        self._cells[next_i][next_j].has_right_wall = False
+
+
+      # Draw the cells
+      self._draw_cell(i,j)
+      self._draw_cell(next_i, next_j)
+      
+      self._break_walls_r(next_i, next_j)
+
+          
+
+
+
